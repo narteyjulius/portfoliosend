@@ -1,0 +1,21 @@
+<section id="contact" class="card fade">
+  <h2 class="section-title">Contact</h2>
+
+  <form method="post" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    {% csrf_token %}
+
+    <input class="input" type="text" name="name" placeholder="Your name" required>
+    <input class="input" type="email" name="email" placeholder="Your email" required>
+
+    <textarea class="input md:col-span-2" name="message" rows="5" placeholder="Your message" required></textarea>
+
+    <div class="md:col-span-2 flex gap-3">
+      <button class="btn-primary" type="submit">Send</button>
+      <a id="downloadCV" href="{% url 'download_cv' %}" class="btn-primary">Download CV</a>
+    </div>
+
+    {% if success %}
+      <p class="md:col-span-2 text-green-600 mt-2">Message sent successfully — thank you!</p>
+    {% endif %}
+  </form>
+</section>

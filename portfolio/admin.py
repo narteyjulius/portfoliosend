@@ -7,6 +7,40 @@ from django.urls import path
 from django.shortcuts import render
 from django.db.models import Count
 
+from django.contrib import admin
+from .models import SkillCategory, Skill, AboutMe
+from adminsortable2.admin import SortableAdminMixin, SortableInlineAdminMixin
+
+
+
+from django.contrib import admin
+from .models import Experience, Education
+from adminsortable2.admin import SortableAdminMixin
+
+
+
+# Inline for skills inside a category
+class SkillInline(SortableInlineAdminMixin, admin.TabularInline):
+    model = Skill
+    extra = 1  # Number of empty skill slots to show
+    fields = ('name', 'proficiency', 'order')
+    sortable_field_name = "order"
+
+# Admin for SkillCategory with inline skills
+@admin.register(SkillCategory)
+class SkillCategoryAdmin(SortableAdminMixin, admin.ModelAdmin):
+    list_display = ('name', 'order')
+    inlines = [SkillInline]
+    sortable_by = ('order',)
+
+@admin.register(AboutMe)
+class AboutMeAdmin(admin.ModelAdmin):
+    list_display = ('full_name', 'location', 'availability', 'email')
+
+
+
+
+
 class ProjectImageInline(admin.TabularInline):
     model = ProjectImage
     extra = 1
@@ -79,3 +113,19 @@ class CVDownloadAdmin(admin.ModelAdmin):
                 data_os=json.dumps(data_os),
             )
             return render(request, 'admin/cvdownload_dashboard.html', context)
+
+
+
+
+
+
+
+@admin.register(Experience)
+class ExperienceAdmin(SortableAdminMixin, admin.ModelAdmin):
+    list_display = ('role', 'company', 'start_date', 'end_date')
+    sortable_by = ('order',)
+
+@admin.register(Education)
+class EducationAdmin(SortableAdminMixin, admin.ModelAdmin):
+    list_display = ('degree', 'institution', 'start_date', 'end_date')
+    sortable_by = ('order',)

@@ -1,334 +1,405 @@
 {% load static %}
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Julius Nartey — Software Engineer</title>
-    <meta name="description" content="Professional portfolio of Julius Nartey — software engineer, full-stack developer." />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-    <!-- Tailwind (CDN for quick use; replace with built Tailwind in production) -->
-    <script src="https://cdn.tailwindcss.com"></script>
+  <title>Julius Nartey — Software Engineer</title>
+  <meta name="description" content="Professional portfolio of Julius Nartey — software engineer, full-stack developer." />
 
-    <!-- JSON for project images (rendered by view) -->
-    {{ project_images_json|json_script:"project-images" }}
+  <!-- Tailwind CDN (replace with built Tailwind in production) -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-    <style>
-      /* small extras */
-      .fade { opacity: 0; transform: translateY(18px); transition: all 0.6s ease; }
-      .fade.show { opacity: 1; transform: translateY(0); }
-      .card { @apply bg-white rounded-xl shadow-md p-5; } /* tailwind @apply only works with build; it's harmless here */
-      /* fallback for non-built environment */
-      .card { background: #fff; border-radius: 0.75rem; box-shadow: 0 6px 18px rgba(2,6,23,0.08); padding: 1.25rem; }
-      /* carousel buttons */
-      .arrow-btn { @apply text-white text-3xl px-4 py-2 rounded-md; }
-      /* small responsive tweaks */
-      .thumb { height: 6rem; object-fit: cover; width: 100%; display: block; }
-    </style>
+  <!-- Toastify -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-  </head>
+  <!-- Project images JSON -->
+  {{ project_images_json|json_script:"project-images" }}
 
-  <body class="bg-slate-50 text-slate-800 antialiased transition-colors duration-300">
-    <!-- Sticky navbar -->
-    <nav class="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur z-40 border-b">
-      <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-          <a href="/" class="text-xl font-bold">Julius Nartey</a>
-          <span class="text-sm text-slate-500">• Software Engineer</span>
-        </div>
+  <style>
+    .fade { opacity: 0; transform: translateY(18px); transition: all 0.6s ease; }
+    .fade.show { opacity: 1; transform: translateY(0); }
 
-        <div class="hidden md:flex items-center gap-6">
-          <a href="#projects" class="text-sm hover:underline">Projects</a>
-          <a href="#contact" class="text-sm hover:underline">Contact</a>
-          <button id="theme-toggle" class="px-3 py-1 border rounded-md text-sm">Dark</button>
-        </div>
+    .card {
+      background: #fff; border-radius: 0.75rem;
+      box-shadow: 0 6px 18px rgba(2,6,23,0.08); padding: 1.25rem;
+    }
 
-        <!-- mobile -->
-        <div class="md:hidden">
-          <button id="mobile-toggle" class="px-3 py-1 border rounded-md">Menu</button>
-        </div>
-      </div>
+    .thumb {
+      height: 6rem; width: 100%; object-fit: cover; display: block;
+    }
+  </style>
+</head>
 
-      <!-- mobile menu -->
-      <div id="mobile-menu" class="hidden md:hidden border-t bg-white/95">
-        <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col gap-2">
-          <a href="#projects" class="block text-sm">Projects</a>
-          <a href="#contact" class="block text-sm">Contact</a>
-          <button id="theme-toggle-mobile" class="px-3 py-1 border rounded-md text-sm">Dark</button>
-        </div>
-      </div>
-    </nav>
+<body class="bg-slate-50 text-slate-800 antialiased transition-colors duration-300">
 
-    <main class="max-w-6xl mx-auto px-4 pt-28 pb-24">
-      <!-- HERO -->
-      <header class="grid md:grid-cols-2 gap-8 items-center mb-12">
-        <div class="flex items-center justify-center md:justify-start">
-          <div class="w-36 h-36 rounded-full overflow-hidden shadow-lg">
-            <img src="{% static 'portfolio/placeholder-profile.jpg' %}" alt="Julius Nartey" class="w-full h-full object-cover"/>
-          </div>
-        </div>
+<!-- ========================================================= -->
+<!-- NAVBAR -->
+<!-- ========================================================= -->
+<nav class="fixed top-0 inset-x-0 bg-white/80 backdrop-blur z-40 border-b">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <a href="/" class="text-xl font-bold">Julius Nartey</a>
+      <span class="text-sm text-slate-500">• Software Engineer</span>
+    </div>
 
-        <div class="text-center md:text-left">
-          <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">Julius Nartey</h1>
-          <p class="text-slate-600 mt-2 text-lg">Software Engineer • Full-Stack Developer</p>
-          <p class="mt-4 text-slate-700 max-w-2xl">I build fast, reliable web applications and APIs with a focus on clean code, performance, and delightful user experiences.</p>
+    <div class="hidden md:flex items-center gap-6">
+      <a href="#projects" class="text-sm hover:underline">Projects</a>
+      <a href="#experience" class="text-sm hover:underline">Experience</a>
+      <a href="#education" class="text-sm hover:underline">Education</a>
+      <a href="#contact" class="text-sm hover:underline">Contact</a>
 
-          <div class="mt-6 flex justify-center md:justify-start gap-3">
-            <a href="#contact" class="px-5 py-3 rounded-full bg-slate-900 text-white">Get in touch</a>
-            <a href="#projects" class="px-5 py-3 rounded-full border">View projects</a>
-          </div>
-        </div>
-      </header>
+      <button id="theme-toggle" class="px-3 py-1 border rounded-md text-sm">Dark</button>
+    </div>
 
-      <!-- ABOUT + SKILLS -->
-      <section class="grid md:grid-cols-2 gap-6 mb-12">
-        <article class="card fade">
-          <h2 class="text-2xl font-semibold mb-2">About Me</h2>
-          <p class="text-slate-700">I'm a software engineer experienced in building scalable backend systems, developer-friendly APIs, and modern frontends. I enjoy solving hard problems and mentoring engineers.</p>
-          <ul class="mt-4 text-slate-700 space-y-1">
-            <li><strong>Location:</strong> Accra, Ghana</li>
-            <li><strong>Availability:</strong> Open to work / contract</li>
-            <li><strong>Email:</strong> <a href="mailto:julius@example.com" class="text-sky-600">julius.nartey.71@gmail.com</a></li>
-          </ul>
-        </article>
+    <!-- Mobile button -->
+    <button id="mobile-toggle" class="md:hidden px-3 py-1 border rounded-md">Menu</button>
+  </div>
 
-        <aside class="card fade">
-          <h2 class="text-2xl font-semibold mb-2">Skills</h2>
-          <div class="grid grid-cols-2 gap-4 text-slate-700">
-            <div>
-              <h3 class="font-medium">Languages</h3>
-              <ul class="list-disc ml-5 mt-2">
-                <li>Python</li>
-                <li>JavaScript / TypeScript</li>
-                <li>SQL</li>
-              </ul>
-            </div>
-            <div>
-              <h3 class="font-medium">Frameworks & Tools</h3>
-              <ul class="list-disc ml-5 mt-2">
-                <li>Django / DRF</li>
-                <li>React</li>
-                <li>Docker • AWS</li>
-              </ul>
-            </div>
-          </div>
-        </aside>
-      </section>
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden md:hidden border-t bg-white/95">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex flex-col gap-2">
+      <a href="#projects" class="text-sm">Projects</a>
+      <a href="#experience" class="text-sm">Experience</a>
+      <a href="#education" class="text-sm">Education</a>
+      <a href="#contact" class="text-sm">Contact</a>
+      <button id="theme-toggle-mobile" class="px-3 py-1 border rounded-md text-sm">Dark</button>
+    </div>
+  </div>
+</nav>
 
-      <!-- PROJECTS -->
-      <section id="projects" class="mb-12">
-        <h2 class="text-3xl font-bold mb-6 text-center fade">Selected Projects</h2>
+<!-- ========================================================= -->
+<!-- MAIN CONTENT -->
+<!-- ========================================================= -->
+<main class="max-w-6xl mx-auto px-4 pt-28 pb-24">
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {% for project in projects %}
-          <article class="card fade">
-            <!-- Thumbnails grid -->
-            {% if project.images.all %}
-              <div class="grid grid-cols-3 gap-2 mb-3">
-                {% for img in project.images.all %}
-                  <button
-                    class="overflow-hidden rounded-md focus:outline-none"
-                    onclick="openCarouselForProject({{ project.id }}, {{ forloop.counter0 }})"
-                    aria-label="Open image {{ forloop.counter }} for {{ project.title }}">
-                    <img src="{{ img.image.url }}" alt="{{ project.title }} screenshot" class="thumb"/>
-                  </button>
-                {% endfor %}
-              </div>
-            {% endif %}
+  <!-- ========================================================= -->
+  <!-- HERO -->
+  <!-- ========================================================= -->
+  <header class="grid md:grid-cols-2 gap-8 items-center mb-12">
 
-            <h3 class="text-xl font-semibold mb-2">{{ project.title }}</h3>
-            <p class="text-slate-700 mb-3">{{ project.description|truncatechars:160 }}</p>
-            <p class="text-sm text-slate-500 mb-4"><strong>Tech:</strong> {{ project.tech_stack }}</p>
-            <div class="flex gap-2">
-              {% if project.live_link %}
-                <a class="inline-block px-3 py-2 rounded-md border text-sm" href="{{ project.live_link }}" target="_blank" rel="noopener">Live</a>
-              {% endif %}
-              {% if project.repo_link %}
-                <a class="inline-block px-3 py-2 rounded-md bg-slate-900 text-white text-sm" href="{{ project.repo_link }}" target="_blank" rel="noopener">Repo</a>
-              {% endif %}
-            </div>
-          </article>
-          {% endfor %}
-        </div>
-      </section>
-
-      <!-- CONTACT -->
-      <section id="contact" class="card fade">
-        <h2 class="text-2xl font-semibold mb-3">Contact</h2>
-        <p class="text-slate-700 mb-4">I'd love to hear about your project or role. Drop me a message and I'll reply as soon as I can.</p>
-
-        <form method="post" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {% csrf_token %}
-          <input class="border rounded-md p-3" type="text" name="name" placeholder="Your name" required />
-          <input class="border rounded-md p-3" type="email" name="email" placeholder="Your email" required />
-          <textarea class="md:col-span-2 border rounded-md p-3" name="message" rows="5" placeholder="Your message" required></textarea>
-
-          <div class="md:col-span-2 flex gap-3">
-            <button type="submit" class="px-5 py-3 rounded-full bg-slate-900 text-white">Send</button>
-            
-<!-- <a id="downloadCV" href="{% static 'cv/JuliusNarteyCV.pdf' %}" download
-   class="px-5 py-3 rounded-full border  hover:scale-105 transition transform duration-300"
-   >
-    Download CV
-</a> -->
-<a href="{% url 'download_cv' %}" class="px-5 py-3 bg-slate-900 text-white rounded-lg">
-    Download CV
-</a>
-   <!-- class="px-6 py-3 bg-blue-600 text-white rounded-lg shadow-lg hover:scale-105 transition transform duration-300" -->
-
-            <!-- <a href="{% static 'portfolio/resume.pdf' %}" class="px-5 py-3 rounded-full border">Download CV</a> -->
-          </div>
-
-          {% if success %}
-            <p class="md:col-span-2 text-green-600 mt-2">Message sent successfully — thank you!</p>
-          {% endif %}
-        </form>
-      </section>
-
-      <footer class="mt-12 text-center text-sm text-slate-500">© <span id="year"></span> Julius Nartey — Built with care.</footer>
-    </main>
-
-    <!-- Carousel modal -->
-    <div id="carousel" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center hidden z-50">
-      <button id="close-carousel" class="absolute top-6 right-6 text-white text-3xl">&times;</button>
-      <button id="prev-carousel" class="absolute left-6 text-white text-4xl">&#10094;</button>
-      <button id="next-carousel" class="absolute right-6 text-white text-4xl">&#10095;</button>
-      <div class="max-w-4xl mx-auto px-4">
-        <img id="carousel-img" src="" alt="Project screenshot" class="max-h-[80vh] w-full object-contain rounded-md shadow-lg"/>
-        <p id="carousel-caption" class="text-white text-center mt-3"></p>
+    <!-- Profile Image -->
+    <div class="flex justify-center md:justify-start">
+      <div class="w-36 h-36 rounded-full overflow-hidden shadow-lg">
+        {% if about.profile_picture %}
+          <img src="{{ about.profile_picture.url }}" alt="{{ about.full_name }}" class="w-full h-full object-cover">
+        {% endif %}
       </div>
     </div>
 
-    <!-- JSON to JS helper: parse the script added above -->
-    <script>
-      // set year
-      document.getElementById('year').textContent = new Date().getFullYear();
+    <!-- Hero Text -->
+    <div class="text-center md:text-left">
+      <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">Julius Nartey</h1>
+      <p class="text-slate-600 mt-2 text-lg">Software Engineer • Full-Stack Developer</p>
+      <p class="mt-4 text-slate-700">I build fast, reliable web applications and APIs with clean code, performance, and delightful user experiences.</p>
 
-      // parse project images mapping from Django json_script output
-      const projectImages = JSON.parse(document.getElementById('project-images').textContent || '{}');
+      <div class="mt-6 flex justify-center md:justify-start gap-3">
+        <a href="#contact" class="px-5 py-3 rounded-full bg-slate-900 text-white">Get in touch</a>
+        <a href="#projects" class="px-5 py-3 rounded-full border">View projects</a>
+      </div>
+    </div>
+  </header>
 
-      // reveal animations
-      const fades = Array.from(document.querySelectorAll('.fade'));
-      function reveal() {
-        fades.forEach(el => {
-          const rect = el.getBoundingClientRect();
-          if (rect.top < window.innerHeight - 80) el.classList.add('show');
-        });
-      }
-      window.addEventListener('scroll', reveal);
-      window.addEventListener('load', reveal);
+  <!-- ========================================================= -->
+  <!-- ABOUT + SKILLS -->
+  <!-- ========================================================= -->
+  <section class="grid md:grid-cols-2 gap-6 mb-12">
 
-      // mobile menu toggle
-      document.getElementById('mobile-toggle').addEventListener('click', () => {
-        const m = document.getElementById('mobile-menu');
-        m.classList.toggle('hidden');
-      });
+    <!-- About -->
+    <article class="card fade">
+      <h2 class="text-2xl font-semibold mb-2">About Me</h2>
+      <p class="text-slate-700">{{ about.bio }}</p>
 
-      // Theme toggle with persistent preference
-      const themeToggle = document.getElementById('theme-toggle');
-      const themeToggleMobile = document.getElementById('theme-toggle-mobile');
-      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const savedTheme = localStorage.getItem('theme'); // 'dark' or 'light'
+      <ul class="mt-4 text-slate-700 space-y-1">
+        <li><strong>Location:</strong> {{ about.location }}</li>
+        <li><strong>Availability:</strong> {{ about.availability }}</li>
+        <li><strong>Email:</strong>
+          <a href="mailto:{{ about.email }}" class="text-sky-600">{{ about.email }}</a>
+        </li>
+      </ul>
+    </article>
 
-      function applyTheme(theme) {
-        if (theme === 'dark') {
-          document.documentElement.classList.add('dark');
-          document.body.classList.add('bg-slate-900');
-          document.body.classList.add('text-white');
-          themeToggle.textContent = 'Light';
-          if (themeToggleMobile) themeToggleMobile.textContent = 'Light';
-        } else {
-          document.documentElement.classList.remove('dark');
-          document.body.classList.remove('bg-slate-900');
-          document.body.classList.remove('text-white');
-          themeToggle.textContent = 'Dark';
-          if (themeToggleMobile) themeToggleMobile.textContent = 'Dark';
-        }
-      }
+    <!-- Skills -->
+    <aside class="card fade">
+      <h2 class="text-2xl font-semibold mb-2">Skills</h2>
 
-      // initial
-      if (savedTheme) applyTheme(savedTheme);
-      else applyTheme(prefersDark ? 'dark' : 'light');
+      <div class="grid grid-cols-2 gap-4 text-slate-700">
+        {% for category in categories %}
+        <div>
+          <h3 class="font-medium">{{ category.name }}</h3>
+          <ul class="list-disc ml-5 mt-2">
+            {% for skill in category.skills.all %}
+              <li>
+                {{ skill.name }}
+                {% if skill.proficiency %} - {{ skill.proficiency }}{% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endfor %}
+      </div>
+    </aside>
+  </section>
 
-      function toggleTheme() {
-        const isDark = document.documentElement.classList.contains('dark');
-        const next = isDark ? 'light' : 'dark';
-        applyTheme(next);
-        localStorage.setItem('theme', next);
-      }
-      themeToggle.addEventListener('click', toggleTheme);
-      if (themeToggleMobile) themeToggleMobile.addEventListener('click', toggleTheme);
+  <!-- ========================================================= -->
+  <!-- PROJECTS -->
+  <!-- ========================================================= -->
+  <section id="projects" class="mb-12">
+    <h2 class="text-3xl font-bold mb-6 text-center fade">Selected Projects</h2>
 
-      // CAROUSEL LOGIC
-      let carouselImages = [];
-      let carouselIndex = 0;
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {% for project in projects %}
+      <article class="card fade">
 
-      function openCarouselForProject(projectId, startIndex = 0) {
-        const imgs = projectImages[projectId] || [];
-        if (!imgs.length) return;
-        // imgs: array of {image: '/media/..', caption: '...'} or {image: '/media/..'}
-        carouselImages = imgs;
-        carouselIndex = startIndex;
-        showCarouselImage();
-        document.getElementById('carousel').classList.remove('hidden');
-      }
+        <!-- Thumbnails -->
+        {% if project.images.all %}
+        <div class="grid grid-cols-3 gap-2 mb-3">
+          {% for img in project.images.all %}
+          <button class="overflow-hidden rounded-md"
+                  onclick="openCarouselForProject({{ project.id }}, {{ forloop.counter0 }})">
+            <img src="{{ img.image.url }}" class="thumb" alt="{{ project.title }}">
+          </button>
+          {% endfor %}
+        </div>
+        {% endif %}
 
-      function showCarouselImage() {
-        const imgObj = carouselImages[carouselIndex];
-        document.getElementById('carousel-img').src = imgObj.image;
-        document.getElementById('carousel-caption').textContent = imgObj.caption || '';
-      }
+        <h3 class="text-xl font-semibold mb-2">{{ project.title }}</h3>
+        <p class="text-slate-700 mb-3">{{ project.description|truncatechars:160 }}</p>
+        <p class="text-sm text-slate-500 mb-4">
+          <strong>Tech:</strong> {{ project.tech_stack }}
+        </p>
 
-      document.getElementById('prev-carousel').addEventListener('click', () => {
-        if (!carouselImages.length) return;
-        carouselIndex = (carouselIndex - 1 + carouselImages.length) % carouselImages.length;
-        showCarouselImage();
-      });
+        <div class="flex gap-2">
+          {% if project.live_link %}
+            <a class="px-3 py-2 border rounded-md text-sm" href="{{ project.live_link }}" target="_blank">Live</a>
+          {% endif %}
+          {% if project.repo_link %}
+            <a class="px-3 py-2 bg-slate-900 text-white rounded-md text-sm" href="{{ project.repo_link }}" target="_blank">Repo</a>
+          {% endif %}
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
 
-      document.getElementById('next-carousel').addEventListener('click', () => {
-        if (!carouselImages.length) return;
-        carouselIndex = (carouselIndex + 1) % carouselImages.length;
-        showCarouselImage();
-      });
+  <!-- ========================================================= -->
+  <!-- EXPERIENCE -->
+  <!-- ========================================================= -->
+  <section id="experience" class="mb-12">
+    <h2 class="text-3xl font-bold mb-6 text-center fade">Experience</h2>
 
-      document.getElementById('close-carousel').addEventListener('click', () => {
-        document.getElementById('carousel').classList.add('hidden');
-      });
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {% for exp in experiences %}
+      <article class="card fade">
+        <h3 class="font-medium">{{ exp.role }}
+          <span class="text-slate-500">at {{ exp.company }}</span>
+        </h3>
+        <p class="text-sm text-slate-500 mb-2">
+          {{ exp.start_date|date:"M Y" }} –
+          {% if exp.end_date %}{{ exp.end_date|date:"M Y" }}{% else %}Present{% endif %}
+        </p>
+        <p class="text-slate-700">{{ exp.description|truncatechars:160 }}</p>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
 
-      // close on background click or escape
-      document.getElementById('carousel').addEventListener('click', e => {
-        if (e.target.id === 'carousel') document.getElementById('carousel').classList.add('hidden');
-      });
-      document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') document.getElementById('carousel').classList.add('hidden');
-      });
+  <!-- ========================================================= -->
+  <!-- EDUCATION -->
+  <!-- ========================================================= -->
+  <section id="education" class="card fade mb-12">
+    <h2 class="text-3xl font-bold mb-6 text-center fade">Education</h2>
+    <!-- <h2 class="text-2xl font-semibold mb-4">Education</h2> -->
 
 
+       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {% for edu in educations %}
+      <article class="card fade">
+        <h3 class="font-medium">{{ edu.degree }}
+          <span class="text-slate-500">at {{ edu.institution }}</span>
+        </h3>
+        <p class="text-sm text-slate-500 mb-2">
+          {{ exp.start_date|date:"M Y" }} –
+          {% if exp.end_date %}{{ exp.end_date|date:"M Y" }}{% else %}Present{% endif %}
+        </p>
+          {% if edu.field_of_study %}
+          <p class="text-slate-700">Field of Study: {{ edu.field_of_study }}</p>
+        {% endif %}
+      </article>
+      {% endfor %}
+    </div>
 
+  </section>
 
+  <!-- ========================================================= -->
+  <!-- CONTACT -->
+  <!-- ========================================================= -->
+  <section id="contact" class="card fade">
+    <h2 class="text-2xl font-semibold mb-3">Contact</h2>
+    <p class="text-slate-700 mb-4">
+      I'd love to hear about your project or role. Send me a message!
+    </p>
 
+    <form method="post" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      {% csrf_token %}
 
-      document.getElementById("downloadCV").addEventListener("click", function() {
-    // 🔵 Toast notification
+      <input class="border rounded-md p-3" type="text" name="name" placeholder="Your name" required>
+      <input class="border rounded-md p-3" type="email" name="email" placeholder="Your email" required>
+
+      <textarea class="md:col-span-2 border rounded-md p-3"
+                name="message" rows="5" placeholder="Your message" required></textarea>
+
+      <div class="md:col-span-2 flex gap-3">
+        <button type="submit" class="px-5 py-3 bg-slate-900 text-white rounded-full">Send</button>
+
+        <a id="downloadCV" href="{% url 'download_cv' %}"
+           class="px-5 py-3 bg-slate-900 text-white rounded-full">
+          Download CV
+        </a>
+      </div>
+
+      {% if success %}
+        <p class="md:col-span-2 text-green-600 mt-2">Message sent successfully — thank you!</p>
+      {% endif %}
+    </form>
+  </section>
+
+  <footer class="mt-12 text-center text-sm text-slate-500">
+    © <span id="year"></span> Julius Nartey — Built with care.
+  </footer>
+</main>
+
+<!-- ========================================================= -->
+<!-- CAROUSEL MODAL -->
+<!-- ========================================================= -->
+<div id="carousel" class="fixed inset-0 bg-black/80 hidden items-center justify-center z-50">
+  <button id="close-carousel" class="absolute top-6 right-6 text-white text-3xl">&times;</button>
+  <button id="prev-carousel" class="absolute left-6 text-white text-4xl">&#10094;</button>
+  <button id="next-carousel" class="absolute right-6 text-white text-4xl">&#10095;</button>
+
+  <div class="max-w-4xl mx-auto px-4">
+    <img id="carousel-img" class="max-h-[80vh] w-full object-contain rounded-md shadow-lg">
+    <p id="carousel-caption" class="text-white text-center mt-3"></p>
+  </div>
+</div>
+
+<!-- ========================================================= -->
+<!-- JAVASCRIPT -->
+<!-- ========================================================= -->
+<script>
+  /* ------------------ YEAR ------------------ */
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  /* ------------------ FADE ANIMATION ------------------ */
+  const fades = [...document.querySelectorAll(".fade")];
+  function reveal() {
+    fades.forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 80) el.classList.add("show");
+    });
+  }
+  window.addEventListener("scroll", reveal);
+  window.addEventListener("load", reveal);
+
+  /* ------------------ MOBILE MENU ------------------ */
+  document.getElementById("mobile-toggle").onclick = () =>
+    document.getElementById("mobile-menu").classList.toggle("hidden");
+
+  /* ------------------ THEME LOGIC ------------------ */
+  const themeToggle = document.getElementById("theme-toggle");
+  const themeToggleMobile = document.getElementById("theme-toggle-mobile");
+  const savedTheme = localStorage.getItem("theme");
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+  function applyTheme(theme) {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+    document.body.classList.toggle("bg-slate-900", theme === "dark");
+    document.body.classList.toggle("text-white", theme === "dark");
+
+    themeToggle.textContent = theme === "dark" ? "Light" : "Dark";
+    if (themeToggleMobile) themeToggleMobile.textContent = theme === "dark" ? "Light" : "Dark";
+  }
+
+  applyTheme(savedTheme || (prefersDark ? "dark" : "light"));
+
+  function toggleTheme() {
+    const next = document.documentElement.classList.contains("dark") ? "light" : "dark";
+    applyTheme(next);
+    localStorage.setItem("theme", next);
+  }
+
+  themeToggle.onclick = toggleTheme;
+  if (themeToggleMobile) themeToggleMobile.onclick = toggleTheme;
+
+  /* ------------------ PROJECT CAROUSEL ------------------ */
+  const projectImages = JSON.parse(document.getElementById("project-images").textContent || "{}");
+  let carouselImages = [];
+  let carouselIndex = 0;
+
+  function openCarouselForProject(projectId, startIndex = 0) {
+    carouselImages = projectImages[projectId] || [];
+    if (!carouselImages.length) return;
+
+    carouselIndex = startIndex;
+    updateCarousel();
+    document.getElementById("carousel").classList.remove("hidden");
+  }
+
+  function updateCarousel() {
+    const { image, caption = "" } = carouselImages[carouselIndex];
+    document.getElementById("carousel-img").src = image;
+    document.getElementById("carousel-caption").textContent = caption;
+  }
+
+  document.getElementById("prev-carousel").onclick = () => {
+    carouselIndex = (carouselIndex - 1 + carouselImages.length) % carouselImages.length;
+    updateCarousel();
+  };
+
+  document.getElementById("next-carousel").onclick = () => {
+    carouselIndex = (carouselIndex + 1) % carouselImages.length;
+    updateCarousel();
+  };
+
+  document.getElementById("close-carousel").onclick = () =>
+    document.getElementById("carousel").classList.add("hidden");
+
+  /* Close on background click or Esc */
+  document.getElementById("carousel").onclick = e => {
+    if (e.target.id === "carousel") document.getElementById("carousel").classList.add("hidden");
+  };
+  document.onkeydown = e => {
+    if (e.key === "Escape") document.getElementById("carousel").classList.add("hidden");
+  };
+
+  /* ------------------ CV DOWNLOAD TRACKING ------------------ */
+  function getCookie(name) {
+    return document.cookie
+      .split(";")
+      .map(c => c.trim())
+      .find(c => c.startsWith(name + "="))
+      ?.split("=")[1];
+  }
+
+  document.getElementById("downloadCV").onclick = () => {
     Toastify({
-        text: "Downloading CV...",
-        duration: 2000,
-        close: false,
-        gravity: "top",
-        position: "center",
+      text: "Downloading CV...",
+      duration: 1000,
+      gravity: "top",
+      position: "center"
     }).showToast();
 
-    // 🔵 Track download in backend
     fetch("/track-download/", {
-        method: "POST",
-        headers: {
-            "X-CSRFToken": "{{ csrf_token }}",
-            "Content-Type": "application/json"
-        }
+      method: "POST",
+      headers: {
+        "X-CSRFToken": getCookie("csrftoken"),
+        "Content-Type": "application/json"
+      }
     });
-});
-    </script>
-  </body>
+  };
+</script>
+
+</body>
 </html>

@@ -1,0 +1,32 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{% block title %}Portfolio — Julius Nartey{% endblock %}</title>
+
+  <link rel="stylesheet" href="https://cdn.tailwindcss.com">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  
+  <!-- Tailwind CDN (replace with built Tailwind in production) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-50 text-slate-800 antialiased">
+  
+  {% include "includes/_navbar.html" %}
+
+  <main class="max-w-6xl mx-auto px-4 pt-28 pb-24">
+    {% block content %}{% endblock %}
+  </main>
+
+  {% include "includes/_footer.html" %}
+  {% include "includes/_carousel.html" %}
+
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <script src="{% static 'js/portfolio.js' %}"></script>
+
+</body>
+</html>

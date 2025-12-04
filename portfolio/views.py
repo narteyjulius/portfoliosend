@@ -13,7 +13,7 @@ from .models import CVDownload
 from .models import CVDownload
 from django.http import FileResponse
 from user_agents import parse 
-
+from .models import SkillCategory,AboutMe,Education,Experience
 
 
 
@@ -31,21 +31,38 @@ def home(request):
     # projects = Project.objects.all()
     if request.method == 'POST':
         form = ContactForm(request.POST)
+        # print(form)
         if form.is_valid():
+            print('good')
             contact = form.save()
             send_mail(
                 f"New message from {contact.name}",
                 contact.message,
-                contact.email,
-                [settings.DEFAULT_FROM_EMAIL],
-                fail_silently=False,
+                # contact.email,
+                # [settings.DEFAULT_FROM_EMAIL],
+                # fail_silently=False,
+                  from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[settings.DEFAULT_FROM_EMAIL],
             )
             return render(request, "index.html", {"form": form, "projects": projects, "success": True})
     else:
         form = ContactForm()
 
 
-    return render(request, "index.html", {"form": form, "projects": projects,  "project_images_json": project_images,})
+
+    categories = SkillCategory.objects.prefetch_related('skills').all()
+    about = AboutMe.objects.first()
+
+    experiences = Experience.objects.all()
+    educations = Education.objects.all()
+
+    return render(request, "pages/home.html", {"form": form, "projects": projects,  
+                                          "project_images_json": project_images,
+                                          'categories': categories,
+                                          'about': about,
+                                            'experiences': experiences,
+                                            'educations': educations,
+                                          })
 
 
 

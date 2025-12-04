@@ -1,0 +1,16 @@
+<aside class="card fade">
+  <h2 class="section-title">Skills</h2>
+
+  <div class="grid grid-cols-2 gap-4 text-slate-700">
+    {% for category in categories %}
+      <div>
+        <h3 class="font-medium">{{ category.name }}</h3>
+        <ul class="list-disc ml-5 mt-2">
+          {% for skill in category.skills.all %}
+            <li>{{ skill.name }}{% if skill.proficiency %} — {{ skill.proficiency }}{% endif %}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endfor %}
+  </div>
+</aside>

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Home — Julius Nartey{% endblock %}
+
+{% block content %}
+
+<header class="grid md:grid-cols-2 gap-8 items-center mb-12">
+
+  <div class="flex justify-center md:justify-start">
+    {% if about.profile_picture %}
+    <img src="{{ about.profile_picture.url }}" class="w-36 h-36 rounded-full shadow-lg object-cover">
+    {% endif %}
+  </div>
+
+  <div class="text-center md:text-left">
+    <h1 class="text-4xl md:text-5xl font-extrabold">Julius Nartey</h1>
+    <p class="text-slate-600 mt-2 text-lg">Software Engineer • Full-Stack Developer</p>
+    <p class="mt-4 text-slate-700">{{ about.bio }}</p>
+
+    <div class="mt-6 flex gap-3 justify-center md:justify-start">
+      <a href="#contact" class="btn-primary">Get in touch</a>
+      <a href="#projects" class="btn">View projects</a>
+    </div>
+  </div>
+</header>
+
+<section class="grid md:grid-cols-2 gap-6 mb-12">
+  {% include "includes/_about.html" %}
+  {% include "includes/_skills.html" %}
+</section>
+
+{% include "includes/_projects.html" %}
+{% include "includes/_experience.html" %}
+{% include "includes/_education.html" %}
+{% include "includes/_contact.html" %}
+
+{% endblock %}

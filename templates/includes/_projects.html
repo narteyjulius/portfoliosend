@@ -1,0 +1,34 @@
+<section id="projects" class="mb-12">
+  <h2 class="section-title text-center">Selected Projects</h2>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    {% for project in projects %}
+      <article class="card fade">
+
+        {% if project.images.count %}
+          <div class="grid grid-cols-3 gap-2 mb-3">
+            {% for img in project.images.all %}
+              <button onclick="openCarouselForProject({{ project.id }}, {{ forloop.counter0 }})">
+                <img src="{{ img.image.url }}" class="thumb">
+              </button>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <h3 class="text-xl font-semibold mb-2">{{ project.title }}</h3>
+        <p class="text-slate-700 mb-3">{{ project.description|truncatechars:160 }}</p>
+        <p class="text-sm text-slate-500 mb-4"><strong>Tech:</strong> {{ project.tech_stack }}</p>
+
+        <div class="flex gap-2">
+          {% if project.live_link %}
+            <a href="{{ project.live_link }}" class="btn">Live</a>
+          {% endif %}
+          {% if project.repo_link %}
+            <a href="{{ project.repo_link }}" class="btn-primary">Repo</a>
+          {% endif %}
+        </div>
+
+      </article>
+    {% endfor %}
+  </div>
+</section>

@@ -1,0 +1,13 @@
+<article class="card fade">
+  <h2 class="section-title">About Me</h2>
+
+  <p class="text-slate-700">{{ about.bio }}</p>
+
+  <ul class="mt-4 text-slate-700 space-y-1">
+    <li><strong>Location:</strong> {{ about.location }}</li>
+    <li><strong>Availability:</strong> {{ about.availability }}</li>
+    <li><strong>Email:</strong> 
+      <a href="mailto:{{ about.email }}" class="text-sky-600">{{ about.email }}</a>
+    </li>
+  </ul>
+</article>
