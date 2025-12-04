@@ -56,7 +56,7 @@ def home(request):
     experiences = Experience.objects.all()
     educations = Education.objects.all()
 
-    return render(request, "pages/home.html", {"form": form, "projects": projects,  
+    return render(request, "index.html", {"form": form, "projects": projects,  
                                           "project_images_json": project_images,
                                           'categories': categories,
                                           'about': about,

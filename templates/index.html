@@ -187,6 +187,7 @@
   <!-- ========================================================= -->
   <!-- EXPERIENCE -->
   <!-- ========================================================= -->
+   {% if experience %}
   <section id="experience" class="mb-12">
     <h2 class="text-3xl font-bold mb-6 text-center fade">Experience</h2>
 
@@ -205,10 +206,12 @@
       {% endfor %}
     </div>
   </section>
+  {%  endif %}
 
   <!-- ========================================================= -->
   <!-- EDUCATION -->
   <!-- ========================================================= -->
+   {% if education %}
   <section id="education" class="card fade mb-12">
     <h2 class="text-3xl font-bold mb-6 text-center fade">Education</h2>
     <!-- <h2 class="text-2xl font-semibold mb-4">Education</h2> -->
@@ -229,9 +232,11 @@
         {% endif %}
       </article>
       {% endfor %}
+     
     </div>
 
   </section>
+  {% endif %}
 
   <!-- ========================================================= -->
   <!-- CONTACT -->
