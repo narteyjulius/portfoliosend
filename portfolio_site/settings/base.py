@@ -9,8 +9,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "dev-secret-key")
 
 
-
-
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 
 # DEBUG = os.getenv("DEBUG")
@@ -101,8 +99,6 @@ STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 
 ]
-
-
 
 
 
