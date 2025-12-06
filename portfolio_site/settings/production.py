@@ -5,6 +5,12 @@ from pathlib import Path
 
 print("this is prodution settings")
 
+
+print("Loading production settings...")
+print("BASE_DIR:", BASE_DIR)
+print("ROOT_URLCONF:", ROOT_URLCONF)
+
+
 if not SECRET_KEY:
     raise Exception("SECRET_KEY environment variable is required for production")
 
