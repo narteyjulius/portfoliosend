@@ -14,7 +14,7 @@ print("ROOT_URLCONF:", ROOT_URLCONF)
 if not SECRET_KEY:
     raise Exception("SECRET_KEY environment variable is required for production")
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
 
