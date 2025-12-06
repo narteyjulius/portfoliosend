@@ -1,20 +1,26 @@
-from pathlib import Path
 import os
+from pathlib import Path
+from dotenv import load_dotenv
+load_dotenv()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# SECRET_KEY = 'django-insecure-=c$-kb+idbwlzv&gtde8^*^9bgk5l&iwd6xca97b(!$g7n)7u3'
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
+# DEBUG = True
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-=c$-kb+idbwlzv&gtde8^*^9bgk5l&iwd6xca97b(!$g7n)7u3'
+# # ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "*").split(",")
+# ALLOWED_HOSTS = ["*"]
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "dev-secret-key")
+
+DEBUG = os.getenv("DEBUG", "True") == "True"
+
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "*").split(",")
 
 
 # Application definition
@@ -67,9 +73,15 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+    },
+      'skills_db': {  # second database
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'skills.sqlite3',
     }
 }
 
+
+DATABASE_ROUTERS = ['portfolio_site.routers.SkillsRouter']
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -131,6 +143,9 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'julius.nartey.71gmail.com'
-EMAIL_HOST_PASSWORD = 'fwoauvwxupgrsagy'  # Use environment variable for production
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''  # Use environment variable for production
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+SECURE_SSL_REDIRECT = False
