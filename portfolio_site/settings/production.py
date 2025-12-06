@@ -8,7 +8,7 @@ print("this is prodution settings")
 if not SECRET_KEY:
     raise Exception("SECRET_KEY environment variable is required for production")
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
 
