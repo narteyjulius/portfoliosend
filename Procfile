@@ -1,4 +1,4 @@
 python manage.py makemigrations && \
 python manage.py migrate && \
-python manage.py shell < portfolio_site/create_super.py && \
+python manage.py collectstatic --noinput &&\
 gunicorn portfolio_site.wsgi:application --log-file -
