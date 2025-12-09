@@ -6,6 +6,10 @@ load_dotenv()
 
 User = get_user_model()
 
+
+
+
+
 class Command(BaseCommand):
     help = "Create superuser from environment variables if none exists"
 
@@ -13,10 +17,14 @@ class Command(BaseCommand):
         username = os.getenv("SUPERUSER_NAME")
         email = os.getenv("SUPERUSER_EMAIL")
         password = os.getenv("SUPERUSER_PASSWORD")
+        
+        print("DEBUG:", username, email, password)
+        
 
         if not username or not email or not password:
             self.stdout.write(self.style.ERROR(
-                "SUPERUSER_NAME, SUPERUSER_EMAIL, and SUPERUSER_PASSWORD must be set"
+                "SUPERUSER_NAME, SUPERUSER_EMAIL, and SUPERUSER_PASSWORD must be set",
+                
             ))
             return
 
