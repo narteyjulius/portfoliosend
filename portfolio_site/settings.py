@@ -73,10 +73,6 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    },
-      'skills_db': {  # second database
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'skills.sqlite3',
     }
 }
 
