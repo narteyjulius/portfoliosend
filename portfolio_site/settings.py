@@ -133,8 +133,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-
-
 # Example using Gmail SMTP (or use your own SMTP server)
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -143,6 +141,4 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''  # Use environment variable for production
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-
-
 SECURE_SSL_REDIRECT = False
