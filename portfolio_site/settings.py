@@ -20,6 +20,8 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "dev-secret-key")
 
 DEBUG = True
 
+
+
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "*").split(",")
 
 
@@ -72,8 +74,8 @@ WSGI_APPLICATION = 'portfolio_site.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-        # 'NAME': BASE_DIR / 'productiondb.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'productiondb.sqlite3',
     }
 }
 
