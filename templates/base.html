@@ -5,6 +5,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <!--
+Source - https://stackoverflow.com/a/15036881
+Posted by Vikas Raturi, modified by community. See post 'Timeline' for change history
+Retrieved 2026-01-18, License - CC BY-SA 3.0
+-->
+
+<meta http-equiv="pragma" content="no-cache" />
+
   <title>{% block title %}Portfolio — Julius Nartey{% endblock %}</title>
 
   <link rel="stylesheet" href="https://cdn.tailwindcss.com">
@@ -12,6 +21,19 @@
   
   <!-- Tailwind CDN (replace with built Tailwind in production) -->
   <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+    .fade { opacity: 0; transform: translateY(18px); transition: all 0.6s ease; }
+    .fade.show { opacity: 1; transform: translateY(0); }
+
+    .card {
+      background: #fff; border-radius: 0.75rem;
+      box-shadow: 0 6px 18px rgba(2,6,23,0.08); padding: 1.25rem;
+    }
+
+    .thumb {
+      height: 6rem; width: 100%; object-fit: cover; display: block;
+    }
+  </style>
 </head>
 
 <body class="bg-slate-50 text-slate-800 antialiased">

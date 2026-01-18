@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}{{ project.title }} — Project{% endblock %}
+
+{% block content %}
+
+<article class="max-w-4xl mx-auto">
+
+  <!-- Header -->
+  <header class="mb-8">
+    <h1 class="text-4xl font-extrabold mb-3">
+      {{ project.title }}
+    </h1>
+
+    <p class="text-lg text-slate-600 max-w-2xl">
+      {{ project.summary }}
+    </p>
+
+    <div class="mt-4 flex gap-3">
+      {% if project.live_link %}
+        <a href="{{ project.live_link }}" class="btn-primary">Live Demo</a>
+      {% endif %}
+      {% if project.repo_link %}
+        <a href="{{ project.repo_link }}" class="btn">View Code</a>
+      {% endif %}
+    </div>
+  </header>
+
+  <!-- Tech Stack -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-semibold mb-2">Tech Stack</h2>
+    <p class="text-slate-700">{{ project.tech_stack }}</p>
+  </section>
+
+  <!-- Problem -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-semibold mb-2">Problem</h2>
+    <p class="text-slate-700 leading-relaxed">
+      {{ project.problem }}
+    </p>
+  </section>
+
+  <!-- Solution -->
+  <section class="mb-10">
+    <h2 class="text-2xl font-semibold mb-2">Solution</h2>
+    <p class="text-slate-700 leading-relaxed">
+      {{ project.solution }}
+    </p>
+  </section>
+
+  <!-- Challenges -->
+  {% if project.challenges %}
+  <section class="mb-10">
+    <h2 class="text-2xl font-semibold mb-2">Challenges & Trade-offs</h2>
+    <p class="text-slate-700 leading-relaxed">
+      {{ project.challenges }}
+    </p>
+  </section>
+  {% endif %}
+
+  <!-- Learnings -->
+  {% if project.learnings %}
+  <section class="mb-10">
+    <h2 class="text-2xl font-semibold mb-2">Key Learnings</h2>
+    <p class="text-slate-700 leading-relaxed">
+      {{ project.learnings }}
+    </p>
+  </section>
+  {% endif %}
+
+</article>
+
+{% endblock %}

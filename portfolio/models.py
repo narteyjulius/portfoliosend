@@ -21,6 +21,13 @@ class Project(models.Model):
     repo_link = models.URLField(blank=True, null=True)
     order = models.PositiveIntegerField(default=0, help_text="Order in the portfolio")
     created_at = models.DateTimeField(auto_now_add=True)
+    
+    
+    summary = models.CharField(max_length=220, blank= True)
+    problem = models.TextField( blank= True)
+    solution = models.TextField( blank= True)
+    challenges = models.TextField(blank=True)
+    learnings = models.TextField(blank=True)
 
     class Meta:
         ordering = ['order', '-created_at']

@@ -2,7 +2,7 @@ import os
 from django.http import FileResponse
 from django.conf import settings
 import httpagentparser
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.core.mail import send_mail
 from .forms import ContactForm
 from django.conf import settings
@@ -66,6 +66,13 @@ def home(request):
 
 
 
+def project_detail(request, id):
+    project = get_object_or_404(Project, id=id)
+    return render(request, "pages/project_detail.html", {
+        "project": project
+    })
+
+
 
 def track_download(request):
     if request.method == "POST":
@@ -116,3 +123,5 @@ def download_cv(request):
 
     # return file
     return FileResponse(open(file_path, 'rb'), as_attachment=True, filename='Julius_Nartey_CV.pdf')
+
+
