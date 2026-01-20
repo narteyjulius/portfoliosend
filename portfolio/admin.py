@@ -14,10 +14,11 @@ from adminsortable2.admin import SortableAdminMixin, SortableInlineAdminMixin
 
 
 from django.contrib import admin
-from .models import Experience, Education
+from .models import Experience, Education,ProjectFeature
 from adminsortable2.admin import SortableAdminMixin
 
-
+from django_ckeditor_5.widgets import CKEditor5Widget
+from django import forms
 
 # Inline for skills inside a category
 class SkillInline(SortableInlineAdminMixin, admin.TabularInline):
@@ -45,11 +46,33 @@ class ProjectImageInline(admin.TabularInline):
     model = ProjectImage
     extra = 1
 
+
+
+
+
+class ProjectFeatureInlineForm(forms.ModelForm):
+    class Meta:
+        model = ProjectFeature
+        fields = "__all__"
+        widgets = {
+            "name": CKEditor5Widget(
+                config_name="extends"
+            )
+        }
+
+
+class ProjectFeatureInline(admin.TabularInline):
+    model = ProjectFeature
+    form = ProjectFeatureInlineForm
+    extra = 1
+
+
+
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ('title', 'tech_stack', 'order')
     list_editable = ('order',)
-    inlines = [ProjectImageInline]
+    inlines = [ProjectImageInline, ProjectFeatureInline]
 
 @admin.register(ContactMessage)
 class ContactMessageAdmin(admin.ModelAdmin):
@@ -129,3 +152,12 @@ class ExperienceAdmin(SortableAdminMixin, admin.ModelAdmin):
 class EducationAdmin(SortableAdminMixin, admin.ModelAdmin):
     list_display = ('degree', 'institution', 'start_date', 'end_date')
     sortable_by = ('order',)
+
+
+# @admin.register(ProjectFeature)
+# class ProjectFeatureAdmin(admin.ModelAdmin):
+#     list_display = ("project",)
+#     search_fields = ("project__title",)
+
+
+

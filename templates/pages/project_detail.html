@@ -1,72 +1,107 @@
-{% extends "base.html" %}
-{% block title %}{{ project.title }} — Project{% endblock %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{{ project.title }} — Julius Nartey</title>
+  <meta name="description" content="{{ project.description|truncatechars:160 }}">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
 
-{% block content %}
+  <script src="https://cdn.tailwindcss.com"></script>
 
-<article class="max-w-4xl mx-auto">
+  <style>
+    .card {
+      background: #fff;
+      border-radius: 0.75rem;
+      box-shadow: 0 6px 18px rgba(2,6,23,0.08);
+      padding: 1.5rem;
+    }
+    .thumb {
+      height: 8rem;
+      object-fit: cover;
+    }
+  </style>
+</head>
+
+<body class="bg-slate-50 text-slate-800">
+
+<main class="max-w-5xl mx-auto px-4 py-16">
+
+  <!-- Back -->
+  <a href="{% url 'portfolio:home' %}" class="text-sm text-sky-600 hover:underline">
+    ← Back to projects
+  </a>
 
   <!-- Header -->
-  <header class="mb-8">
-    <h1 class="text-4xl font-extrabold mb-3">
-      {{ project.title }}
-    </h1>
-
-    <p class="text-lg text-slate-600 max-w-2xl">
-      {{ project.summary }}
+  <header class="mt-6 mb-10">
+    <h1 class="text-4xl font-extrabold">{{ project.title }}</h1>
+    <p class="text-slate-600 mt-3 max-w-3xl">
+      {{ project.summary|safe }}
     </p>
 
-    <div class="mt-4 flex gap-3">
+    <p class="mt-4 text-sm text-slate-500">
+      <strong>Tech stack:</strong> {{ project.tech_stack }}
+    </p>
+
+    <div class="mt-6 flex gap-3">
       {% if project.live_link %}
-        <a href="{{ project.live_link }}" class="btn-primary">Live Demo</a>
+        <a href="{{ project.live_link }}" target="_blank"
+           class="px-4 py-2 rounded-md border">
+          Live Demo
+        </a>
       {% endif %}
       {% if project.repo_link %}
-        <a href="{{ project.repo_link }}" class="btn">View Code</a>
+        <a href="{{ project.repo_link }}" target="_blank"
+           class="px-4 py-2 rounded-md bg-slate-900 text-white">
+          GitHub Repo
+        </a>
       {% endif %}
     </div>
   </header>
 
-  <!-- Tech Stack -->
-  <section class="mb-10">
-    <h2 class="text-2xl font-semibold mb-2">Tech Stack</h2>
-    <p class="text-slate-700">{{ project.tech_stack }}</p>
-  </section>
+  <!-- Image Gallery -->
+  {% if project.images.exists %}
+  <section class="card mb-12">
+    <h2 class="text-2xl font-semibold mb-4">Screenshots</h2>
 
-  <!-- Problem -->
-  <section class="mb-10">
-    <h2 class="text-2xl font-semibold mb-2">Problem</h2>
-    <p class="text-slate-700 leading-relaxed">
-      {{ project.problem }}
-    </p>
-  </section>
-
-  <!-- Solution -->
-  <section class="mb-10">
-    <h2 class="text-2xl font-semibold mb-2">Solution</h2>
-    <p class="text-slate-700 leading-relaxed">
-      {{ project.solution }}
-    </p>
-  </section>
-
-  <!-- Challenges -->
-  {% if project.challenges %}
-  <section class="mb-10">
-    <h2 class="text-2xl font-semibold mb-2">Challenges & Trade-offs</h2>
-    <p class="text-slate-700 leading-relaxed">
-      {{ project.challenges }}
-    </p>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+      {% for img in project.images.all %}
+      <img
+        src="{{ img.image.url }}"
+        alt="{{ img.caption|default:project.title }}"
+        class="rounded-md shadow thumb"
+        loading="lazy"
+      >
+      {% endfor %}
+    </div>
   </section>
   {% endif %}
 
-  <!-- Learnings -->
-  {% if project.learnings %}
-  <section class="mb-10">
-    <h2 class="text-2xl font-semibold mb-2">Key Learnings</h2>
-    <p class="text-slate-700 leading-relaxed">
-      {{ project.learnings }}
-    </p>
+  <!-- Project Details -->
+  <section class="grid md:grid-cols-2 gap-6">
+
+    <article class="card">
+      <h2 class="text-xl font-semibold mb-3">Overview</h2>
+      <p class="text-slate-700 leading-relaxed">
+        {{ project.description |safe }}
+      </p>
+    </article>
+
+    <article class="card">
+      <h2 class="text-xl font-semibold mb-3">Key Features</h2>
+
+      <ul class="list-disc ml-5 text-slate-700 space-y-2">
+        {% for feature in project.features.all %}
+          <li>{{ feature.name|safe }}</li>
+        {% empty %}
+         <li>No features added yet.</li>
+        {% endfor %}
+      </ul>
+    </article>
+
   </section>
-  {% endif %}
 
-</article>
+</main>
 
-{% endblock %}
+</body>
+</html>

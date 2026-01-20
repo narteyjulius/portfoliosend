@@ -1,5 +1,5 @@
 from django.db import models
-
+from django_ckeditor_5.fields import CKEditor5Field
 
 class ContactMessage(models.Model):
     name = models.CharField(max_length=100)
@@ -15,25 +15,40 @@ class ContactMessage(models.Model):
 
 class Project(models.Model):
     title = models.CharField(max_length=200)
-    description = models.TextField()
+    # description = models.TextField()
     tech_stack = models.CharField(max_length=300, help_text="Comma-separated technologies")
     live_link = models.URLField(blank=True, null=True)
     repo_link = models.URLField(blank=True, null=True)
     order = models.PositiveIntegerField(default=0, help_text="Order in the portfolio")
     created_at = models.DateTimeField(auto_now_add=True)
+    summary = models.TextField(blank= True)
+
+    description = CKEditor5Field('Description',config_name='extends', blank=True)
     
     
-    summary = models.CharField(max_length=220, blank= True)
-    problem = models.TextField( blank= True)
-    solution = models.TextField( blank= True)
-    challenges = models.TextField(blank=True)
-    learnings = models.TextField(blank=True)
+    # problem = models.TextField( blank= True)
+    # solution = models.TextField( blank= True)
+    # challenges = models.TextField(blank=True)
+    # learnings = models.TextField(blank=True)
 
     class Meta:
         ordering = ['order', '-created_at']
 
     def __str__(self):
         return self.title
+    
+class ProjectFeature(models.Model):
+    project = models.ForeignKey(Project, related_name="features", on_delete=models.CASCADE)
+    # name = models.CharField(max_length=200, blank=True)
+    name = CKEditor5Field('Feature',config_name='extends', blank=True)
+
+    def __str__(self):
+        # Safe text preview for admin / shell
+        return f"Feature for {self.project.title}"
+
+
+
+
 
 class ProjectImage(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='images')

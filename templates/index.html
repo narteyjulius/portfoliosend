@@ -22,6 +22,12 @@
     .fade { opacity: 0; transform: translateY(18px); transition: all 0.6s ease; }
     .fade.show { opacity: 1; transform: translateY(0); }
 
+    .dark .card {
+  background: #020617;
+  color: #e5e7eb;
+}
+
+
     .card {
       background: #fff; border-radius: 0.75rem;
       box-shadow: 0 6px 18px rgba(2,6,23,0.08); padding: 1.25rem;
@@ -171,7 +177,11 @@
   </a>
         
         </h3>
-        <p class="text-slate-700 mb-3">{{ project.description|truncatechars:160 }}</p>
+        <p class="text-slate-700 mb-3">{{ project.summary|truncatechars:160 }}</p>
+        <a href="{% url 'portfolio:project_detail' project.id %}"
+   class="inline-flex items-center text-sm font-medium text-sky-600 hover:underline">
+  Read more →
+</a>
         <p class="text-sm text-slate-500 mb-4">
           <strong>Tech:</strong> {{ project.tech_stack }}
         </p>
